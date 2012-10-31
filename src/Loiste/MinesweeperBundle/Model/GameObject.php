@@ -41,6 +41,6 @@ class GameObject
      */
     public function getNumber()
     {
-        return floor(mt_rand(0, 7)) + 1;
+        return mt_rand(0, 7) + 1;
     }
 }
