@@ -30,6 +30,12 @@ class GameController extends Controller
         $session = new Session();
         $session->start();
         $game = $session->get('game'); /** @var $game Game */
+        // check if we just hit a mine
+        if($game[$row][$column] == GameObject::isMine())
+        {
+            print "Miinaan osui";
+        }
+
 
         return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
             'gameArea' => $game->gameArea

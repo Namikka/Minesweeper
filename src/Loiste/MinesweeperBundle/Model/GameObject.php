@@ -41,6 +41,9 @@ class GameObject
      */
     public function getNumber()
     {
-        return floor(mt_rand(0, 7)) + 1;
+        // This function should receive an array
+        // that either contains info of all the cells around
+        // some cell
+        return mt_rand(0, 7) + 1;
     }
 }
