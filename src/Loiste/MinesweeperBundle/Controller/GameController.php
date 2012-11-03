@@ -18,6 +18,7 @@ class GameController extends Controller
         $session->start();
         $session->set('game', $game);
 
+		
         return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
             'gameArea' => $game->gameArea
         ));
@@ -32,7 +33,6 @@ class GameController extends Controller
 		$session->start();
 		$game = $session->get('game'); /** @var $game Game */
 
-		// print_r($game->gameArea[$row][$column]);
 		if($game->gameArea[$row][$column]->isMine())
 		{
 			$game->gameArea[$row][$column]->isBlown();
@@ -40,7 +40,8 @@ class GameController extends Controller
 		}
 		else
 		{
-			$game->gameArea[$row][$column] == "TYPE_EMPTY";
+			$game->gameArea[$row][$column]->setEmpty();
+			print_r($game->gameArea[$row][$column]);
 		}
 		// Documentation for self:
 		// $game is just a bunch of arrays within objects, representing the gamearea.

@@ -28,10 +28,15 @@ class GameObject
         return $this->type === GameObject::TYPE_MINE;
     }
 	
-    public function isBlown()
+    public function setBlown()
     {
-        $this->blown == 1;
+        $this->blown = 1;
 		$this->type = GameObject::TYPE_EXPLOSION;
+	}	
+	
+    public function setEmpty()
+    {
+		$this->type = GameObject::TYPE_EMPTY;
 	}
 
     public function isNumber()
