@@ -17,6 +17,10 @@
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_NUMBER') %}
             <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" />
             {% endif %}
+			
+            {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EXPLOSION') %}
+            <img src="{{ asset('bundles/loisteminesweeper/images/explosion.png') }}" />
+            {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE_DISCOVERED') %}
             <img src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" />

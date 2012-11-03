@@ -15,7 +15,9 @@ class GameObject
     const TYPE_MINE_DISCOVERED = 5;
 
     public $type;
-
+	public $surroundingMines;
+	public $blown;
+	
     public function __construct($type = 0)
     {
         $this->type = $type;
@@ -25,6 +27,12 @@ class GameObject
     {
         return $this->type === GameObject::TYPE_MINE;
     }
+	
+    public function isBlown()
+    {
+        $this->blown == 1;
+		$this->type = GameObject::TYPE_EXPLOSION;
+	}
 
     public function isNumber()
     {
@@ -41,6 +49,8 @@ class GameObject
      */
     public function getNumber()
     {
-        return mt_rand(0, 7) + 1;
+		$this->surroundingMines = 1;
+		return $this->surroundingMines;
     }
+	
 }
