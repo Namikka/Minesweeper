@@ -36,12 +36,14 @@ class GameController extends Controller
 		if($game->gameArea[$row][$column]->isMine())
 		{
 			$game->gameArea[$row][$column]->isBlown();
+			print "boom";
 			print_r($game->gameArea[$row][$column]);
 		}
 		else
 		{
 			$game->gameArea[$row][$column]->setEmpty();
-			print_r($game->gameArea[$row][$column]);
+			// print "rivi " . $row . "<br>".$column;
+			print_r($game->surrounds($row, $column));
 		}
 		// Documentation for self:
 		// $game is just a bunch of arrays within objects, representing the gamearea.
