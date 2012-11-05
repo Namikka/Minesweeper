@@ -40,20 +40,20 @@ class GameController extends Controller
 		}
 		else
 		{
-			// TODO: learn how to pass that game variable
+			// TODO: I think we could do without passing the game variable
+			// Also: expanding reveal
+			// Logically it should go like this:
+			// get the surrounding tiles->foreach(surroundingTile as tile)->calculateMines(tile)
+			// That's slighlty redundant, but could be "idiot proof" solution.
+			// ideal solution would be one function-one loop
+			/* And that solution could be made by expanding coordinates-array */
+			// $surroundingPositions = $game->surrounds($row, $column);
 			$mines = $this->calculateMines($game, $row, $column);
 			$game->gameArea[$row][$column]->setNumber($mines);
 			$game->gameArea[$row][$column]->setEmpty();
 			print_r($game->gameArea[$row][$column]);
-
-			// varmaan tähä sit vois laittaa sen logiikan joka laskee et kuin monta miinaa on lähistöllä.
-			// Tai sit tehään sille oma funktionsa jottei tästä tulis niin saatanan pitkä
 		}
-		// Documentation for self:
-		// $game is just a bunch of arrays within objects, representing the gamearea.
-		// array has number 0-3, and more info on what those things are can be found from GameObject.php-file
-		// So, like, $game->gameArea[0][2] is the first rows third tile, and it's usually an integer
-		
+
         return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
             'gameArea' => $game->gameArea
         ));
@@ -61,6 +61,7 @@ class GameController extends Controller
 	
 	public function calculateMines($game, $row, $column)
 	{
+		// get the coordinates of surrounding tiles.
 		$surroundingPositions = $game->surrounds($row, $column);
 		$mines = 0;
 		foreach($surroundingPositions as $coordinate)

@@ -39,12 +39,17 @@ class Game
 		$x = $column;
 		// Until we figure out some cool script for this
 		// We just list the surrounding tiles' coordinates
-		// TODO: test coordinates
+		// TODO: come up with some cool script that does tile removal.
 		$tiles = array("-1,+1", "0,+1", "+1,+1", 
 						"-1,0", "+1,0", 
 						"-1,-1", "0,-1", "+1,-1");
 		
-		// And startign from x-axis
+		$expandedTiles = array(	"-2,+2", "-1,+2", "0,+2", "+1,+2", "+2,+2",
+								"-2,+1", "-1,+1", "0,+1", "+1,+1", "+2,+1", 
+								"-2,0", "-1,0", "+1,0", "+2,0", 
+								"-2,-1", "-1,-1", "0,-1", "+1,-1", "+2,-1",
+								"-2,-2", "-1,-2", "0,-2", "+1,-2", "+2,-2");
+		// And starting from x-axis
 		if($x == 0)
 		{
 			// We go through the tiles, and remove all the tiles that aren't surrounding given tile coordinate
