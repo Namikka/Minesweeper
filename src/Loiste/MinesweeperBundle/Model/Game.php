@@ -39,7 +39,9 @@ class Game
 		// Until we figure out some cool script for this
 		// We just list the surrounding tiles' coordinates
 		// TODO: test coordinates
-		$tiles = array("-1,+1", "0,+1", "+1,+1", "-1,0", "+1,0", "-1,-1", "0,-1", "+1,-1");
+		$tiles = array("-1,+1", "0,+1", "+1,+1", 
+						"-1,0", "+1,0", 
+						"-1,-1", "0,-1", "+1,-1");
 		
 		// And startign from x-axis
 		if($x == 0)
@@ -47,7 +49,7 @@ class Game
 			// We go through the tiles, and remove all the tiles that aren't surrounding given tile coordinate
 			foreach($tiles as $pos => $tile)
 			{
-				$match = strpos($tile, "+1,");
+				$match = strpos($tile, "-1,");
 				if($match !== false) { unset($tiles[$pos]); }
 			}
 		}
@@ -55,7 +57,7 @@ class Game
 		{
 			foreach($tiles as $pos => $tile)
 			{
-				$match = strpos($tile, "-1,");
+				$match = strpos($tile, "+1,");
 				if($match !== false) { unset($tiles[$pos]); }
 			}
 		}

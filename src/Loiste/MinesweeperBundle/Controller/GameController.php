@@ -48,18 +48,18 @@ class GameController extends Controller
 			{
 				// we can just strip the given string and check whether it's a mine
 				$offset = explode(",", $coordinate);
-				$x = $offset[0]+$row;
-				$y = $offset[1]+$column;
-				// print $x." ja ".$y."<br>";
+				$x = $offset[0]+$column;
+				$y = $offset[1]+$row;
+				print $x." ja ".$y."<br>";
 				
-				 if($game->gameArea[$x][$y]->isMine())
+				if($game->gameArea[$y][$x]->isMine())
 				{
 					$mines++;
 				} 
 			}
-			// $game->gameArea[$row][$column]->setNumber($mines);
-			print $mines;
-			print_r($game->surrounds($row, $column));
+			$game->gameArea[$row][$column]->setNumber($mines);
+			print_r($game->gameArea[$row][$column]);
+			// print_r($game->surrounds($row, $column));
 			// varmaan tähä sit vois laittaa sen logiikan joka laskee et kuin monta miinaa on lähistöllä.
 			// Tai sit tehään sille oma funktionsa jottei tästä tulis niin saatanan pitkä
 		}

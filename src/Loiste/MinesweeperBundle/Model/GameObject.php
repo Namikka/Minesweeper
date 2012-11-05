@@ -15,7 +15,7 @@ class GameObject
     const TYPE_MINE_DISCOVERED = 5;
 
     public $type;
-	public $surroundingMines;
+	public $number;
 	public $blown;
 	
     public function __construct($type = 0)
@@ -54,8 +54,7 @@ class GameObject
      */
     public function setNumber($mines)
     {
-		$this->surroundingMines = $mines;
-		// return $this->surroundingMines;
+		$this->number = $mines;
     }
 
     /**
@@ -63,8 +62,7 @@ class GameObject
      */	
     public function getNumber()
     {
-		// $this->surroundingMines = 1;
-		return $this->surroundingMines;
+		return $this->number;
     }
 	
 }

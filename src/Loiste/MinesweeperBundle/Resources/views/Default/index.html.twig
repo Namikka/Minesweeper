@@ -12,10 +12,11 @@
         {# Define variables. #}
         {% set gameObject = gameArea[row][column] %}
         {% set type = gameObject.type %}
+        {% set number = gameObject.number %}
 
         <td class="game-cell" data-type="{{ type }}">
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_NUMBER') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" />
+            <img src="{{ asset('bundles/loisteminesweeper/images/' ~ number ~ '.png') }}" />
             {% endif %}
 			
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EXPLOSION') %}
