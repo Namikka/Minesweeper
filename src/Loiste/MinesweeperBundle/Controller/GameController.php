@@ -40,22 +40,10 @@ class GameController extends Controller
 		}
 		else
 		{
-			$game->gameArea[$row][$column]->setEmpty();
-			$surroundingPositions = $game->surrounds($row, $column);
-			$mines = 0;
-			foreach($surroundingPositions as $coordinate)
-			{
-				// we can just strip the given string and check whether it's a mine
-				$offset = explode(",", $coordinate);
-				$x = $offset[0]+$column;
-				$y = $offset[1]+$row;
-				
-				if($game->gameArea[$y][$x]->isMine())
-				{
-					$mines++;
-				} 
-			}
+			// TODO: learn how to pass that game variable
+			$mines = $this->calculateMines($game, $row, $column);
 			$game->gameArea[$row][$column]->setNumber($mines);
+			$game->gameArea[$row][$column]->setEmpty();
 			print_r($game->gameArea[$row][$column]);
 
 			// varmaan tähä sit vois laittaa sen logiikan joka laskee et kuin monta miinaa on lähistöllä.
@@ -71,10 +59,8 @@ class GameController extends Controller
         ));
     }
 	
-	public function calculateMines($row, $column)
+	public function calculateMines($game, $row, $column)
 	{
-		$session = getSession();
-		$game = $session->get('game');
 		$surroundingPositions = $game->surrounds($row, $column);
 		$mines = 0;
 		foreach($surroundingPositions as $coordinate)

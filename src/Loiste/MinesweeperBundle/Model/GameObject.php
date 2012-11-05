@@ -54,6 +54,7 @@ class GameObject
      */
     public function setNumber($mines)
     {
+		$this->type = GameObject::TYPE_NUMBER;
 		$this->number = $mines;
     }
 
