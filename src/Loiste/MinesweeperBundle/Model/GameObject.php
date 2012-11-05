@@ -20,7 +20,13 @@ class GameObject
 	
     public function __construct($type = 0)
     {
-        $this->type = $type;
+		// if we want to tweak the quantity of mines, we'll either use some custom seed
+		// on random number generator
+		// But since we're not that smart we just add some if-else
+		$type = mt_rand(0, 3); // Randomize the game object type.
+		if($type > 2) { $this->type = 1; }
+		else 
+        $this->type = 0;
     }
 
     public function isMine()
