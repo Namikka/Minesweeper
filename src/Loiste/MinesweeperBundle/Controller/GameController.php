@@ -42,6 +42,23 @@ class GameController extends Controller
 		else
 		{
 			$game->gameArea[$row][$column]->setEmpty();
+			$surroundingPositions = $game->surrounds($row, $column);
+			$mines = 0;
+			foreach($surroundingPositions as $coordinate)
+			{
+				// we can just strip the given string and check whether it's a mine
+				$offset = explode(",", $coordinate);
+				$x = $offset[0]+$row;
+				$y = $offset[1]+$column;
+				// print $x." ja ".$y."<br>";
+				
+				 if($game->gameArea[$x][$y]->isMine())
+				{
+					$mines++;
+				} 
+			}
+			// $game->gameArea[$row][$column]->setNumber($mines);
+			print $mines;
 			print_r($game->surrounds($row, $column));
 			// varmaan tähä sit vois laittaa sen logiikan joka laskee et kuin monta miinaa on lähistöllä.
 			// Tai sit tehään sille oma funktionsa jottei tästä tulis niin saatanan pitkä
@@ -58,16 +75,23 @@ class GameController extends Controller
 	
 	public function calculateMines($row, $column)
 	{
-	$game = $session->get('game');
-	$surroundingPositions = $game->surrounds($row, $column);
-	
+		$session = getSession();
+		$game = $session->get('game');
+		$surroundingPositions = $game->surrounds($row, $column);
+		$mines = 0;
 		foreach($surroundingPositions as $coordinate)
 		{
-			// for now we use switch-case
-			// when the surrounds-function is improved, 
-			// we can just strip the given string and chekc whether it's a mine
-			// switch()
+			// we can just strip the given string and check whether it's a mine
+			$offset = explode(",", $coordinate);
+			$x = $row+$offset[0];
+			$y = $row+$offset[1];
+			if($game->gameArea[$x][$y]->isMine())
+			{
+				$mines++;
+			}
 		}
 		
+		return $mines;
+
 	}
 }

@@ -50,11 +50,20 @@ class GameObject
     }
 
     /**
-     * Returns the number of mines around this cell.
+     * Sets the number of mines around this cell.
      */
+    public function setNumber($mines)
+    {
+		$this->surroundingMines = $mines;
+		// return $this->surroundingMines;
+    }
+
+    /**
+     * Returns the number of mines around this cell.
+     */	
     public function getNumber()
     {
-		$this->surroundingMines = 1;
+		// $this->surroundingMines = 1;
 		return $this->surroundingMines;
     }
 	
