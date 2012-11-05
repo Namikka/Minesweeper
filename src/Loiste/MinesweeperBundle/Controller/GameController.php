@@ -35,9 +35,8 @@ class GameController extends Controller
 
 		if($game->gameArea[$row][$column]->isMine())
 		{
-			// $game->gameArea[$row][$column]->blowUp();
 			print "boom";
-			print_r($game->gameArea[$row][$column]);
+			$game->gameArea[$row][$column]->blowUp();
 		}
 		else
 		{
@@ -50,7 +49,6 @@ class GameController extends Controller
 				$offset = explode(",", $coordinate);
 				$x = $offset[0]+$column;
 				$y = $offset[1]+$row;
-				print $x." ja ".$y."<br>";
 				
 				if($game->gameArea[$y][$x]->isMine())
 				{
@@ -59,7 +57,7 @@ class GameController extends Controller
 			}
 			$game->gameArea[$row][$column]->setNumber($mines);
 			print_r($game->gameArea[$row][$column]);
-			// print_r($game->surrounds($row, $column));
+
 			// varmaan tähä sit vois laittaa sen logiikan joka laskee et kuin monta miinaa on lähistöllä.
 			// Tai sit tehään sille oma funktionsa jottei tästä tulis niin saatanan pitkä
 		}
