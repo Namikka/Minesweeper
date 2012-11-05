@@ -35,15 +35,16 @@ class GameController extends Controller
 
 		if($game->gameArea[$row][$column]->isMine())
 		{
-			$game->gameArea[$row][$column]->isBlown();
+			// $game->gameArea[$row][$column]->blowUp();
 			print "boom";
 			print_r($game->gameArea[$row][$column]);
 		}
 		else
 		{
 			$game->gameArea[$row][$column]->setEmpty();
-			// print "rivi " . $row . "<br>".$column;
 			print_r($game->surrounds($row, $column));
+			// varmaan tähä sit vois laittaa sen logiikan joka laskee et kuin monta miinaa on lähistöllä.
+			// Tai sit tehään sille oma funktionsa jottei tästä tulis niin saatanan pitkä
 		}
 		// Documentation for self:
 		// $game is just a bunch of arrays within objects, representing the gamearea.
@@ -54,4 +55,19 @@ class GameController extends Controller
             'gameArea' => $game->gameArea
         ));
     }
+	
+	public function calculateMines($row, $column)
+	{
+	$game = $session->get('game');
+	$surroundingPositions = $game->surrounds($row, $column);
+	
+		foreach($surroundingPositions as $coordinate)
+		{
+			// for now we use switch-case
+			// when the surrounds-function is improved, 
+			// we can just strip the given string and chekc whether it's a mine
+			// switch()
+		}
+		
+	}
 }

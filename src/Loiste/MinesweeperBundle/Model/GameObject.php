@@ -28,7 +28,7 @@ class GameObject
         return $this->type === GameObject::TYPE_MINE;
     }
 	
-    public function setBlown()
+    public function blowUp()
     {
         $this->blown = 1;
 		$this->type = GameObject::TYPE_EXPLOSION;
