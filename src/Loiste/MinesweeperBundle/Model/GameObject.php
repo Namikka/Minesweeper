@@ -60,6 +60,11 @@ class GameObject
      */
     public function setNumber($mines)
     {
+		if($mines == 0)
+		{
+			$this->type === GameObject::TYPE_EMPTY;
+		}
+		else
 		$this->type = GameObject::TYPE_NUMBER;
 		$this->number = $mines;
     }

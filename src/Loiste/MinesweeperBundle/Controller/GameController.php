@@ -37,21 +37,34 @@ class GameController extends Controller
 		{
 			print "boom";
 			$game->gameArea[$row][$column]->blowUp();
+			print_r($game->surrounds($row, $column));
 		}
 		else
 		{
+			$game->gameArea[$row][$column]->setEmpty();
 			// TODO: I think we could do without passing the game variable
 			// Also: expanding reveal
 			// Logically it should go like this:
 			// get the surrounding tiles->foreach(surroundingTile as tile)->calculateMines(tile)
 			// That's slighlty redundant, but could be "idiot proof" solution.
 			// ideal solution would be one function-one loop
-			/* And that solution could be made by expanding coordinates-array */
-			// $surroundingPositions = $game->surrounds($row, $column);
-			$mines = $this->calculateMines($game, $row, $column);
-			$game->gameArea[$row][$column]->setNumber($mines);
-			$game->gameArea[$row][$column]->setEmpty();
-			print_r($game->gameArea[$row][$column]);
+			
+			$surroundingTiles = $game->surrounds($row, $column);
+			foreach($surroundingTiles as $coordinate)
+			{
+				$offset = explode(",", $coordinate);
+				$x = $column+$offset[0]; // Column
+				$y = $row+$offset[1]; // Row
+				$mines = $this->calculateMines($game, $y, $x);
+				$game->gameArea[$y][$x]->setNumber($mines);
+				// $game->gameArea[$y][$x]->type = 3;
+				
+			}
+			// $this->calculateMines($game, $row, $column);
+			// $game->gameArea[$row][$column]->setNumber($mines);
+			
+			//print_r($game->gameArea[$row][$column]);
+			// print_r($game->surrounds($row, $column));
 		}
 
         return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
@@ -63,12 +76,16 @@ class GameController extends Controller
 	{
 		// get the coordinates of surrounding tiles.
 		$surroundingPositions = $game->surrounds($row, $column);
+		
+		// IF the current tile has a mine, we'll just add that to count
+		if($game->gameArea[$row][$column]->isMine()) {$mines = 1;}
+		else
 		$mines = 0;
 		foreach($surroundingPositions as $coordinate)
 		{
 			// we can just strip the given string and check whether it's a mine
 			$offset = explode(",", $coordinate);
-			$x = $row+$offset[0];
+			$x = $column+$offset[0];
 			$y = $row+$offset[1];
 			if($game->gameArea[$x][$y]->isMine())
 			{
