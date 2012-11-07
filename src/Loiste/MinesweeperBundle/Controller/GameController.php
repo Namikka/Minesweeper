@@ -57,14 +57,9 @@ class GameController extends Controller
 				$y = $row+$offset[1]; // Row
 				$mines = $this->calculateMines($game, $y, $x);
 				$game->gameArea[$y][$x]->setNumber($mines);
-				// $game->gameArea[$y][$x]->type = 3;
-				
+		
 			}
-			// $this->calculateMines($game, $row, $column);
-			// $game->gameArea[$row][$column]->setNumber($mines);
-			
-			//print_r($game->gameArea[$row][$column]);
-			// print_r($game->surrounds($row, $column));
+
 		}
 
         return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(

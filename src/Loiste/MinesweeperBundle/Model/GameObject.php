@@ -66,7 +66,7 @@ class GameObject
 		}
 		else
 		{
-			$this->type = GameObject::TYPE_NUMBER;
+			// $this->type = GameObject::TYPE_NUMBER;
 			$this->number = $mines;
 		}
 	}
