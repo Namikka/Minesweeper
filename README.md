@@ -17,13 +17,20 @@ Feel free to implement / work on any part of the project and try to make it a wo
 Here are a few ideas what to implement:
 
 * The "make move" controller action needs to be implemented.
- * If clicked on a mine, it should explode.
- * If clicked on an empty cell, reveal it either as empty or as a number.
-* The mines are currently shown, hide them.
-* We need numbers to describe the number of mines around certain cells.
-* Controllable mine density (currently it's 50% mines).
+ * If clicked on a mine, it should explode. (done)
+ * If clicked on an empty cell, reveal it either as empty or as a number.(done)
+* The mines are currently shown, hide them.(done)
+* We need numbers to describe the number of mines around certain cells.(done)
+* Controllable mine density (currently it's 50% mines).(done)
 * Clicking on an empty cell should reveal neighbor empty cells (expanding reveal).
- 
+
+### Todo:
+* "Flag it or step on it"-menu
+* Switch tilesize to dynamic, consider smart phone resolutions
+* Same kind of expanding reveal as in Windows Minesweeper(we should prolly use that surrounds function and pull of some kind of if isEmpty-loop)
+* Scoreboard and stats to DB?
+
+
 ### Getting started
 
 _Note: Whenever you want to run a command, either use `sf` (Windows) or `./sf.sh` (Unix) depending on your operating system._

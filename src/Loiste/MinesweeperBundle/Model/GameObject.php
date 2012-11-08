@@ -15,16 +15,34 @@ class GameObject
     const TYPE_MINE_DISCOVERED = 5;
 
     public $type;
-
+	public $number;
+	public $blown;
+	
     public function __construct($type = 0)
     {
-        $this->type = $type;
+		// if we want to tweak the quantity of mines, we'll use random number generator
+		// But since we're not that advanced we just add some if-else
+		$type = mt_rand(0, 3); // Randomize the game object type.
+		if($type > 2) { $this->type = 1; }
+		else 
+        $this->type = 0;
     }
 
     public function isMine()
     {
         return $this->type === GameObject::TYPE_MINE;
     }
+	
+    public function blowUp()
+    {
+        $this->blown = 1;
+		$this->type = GameObject::TYPE_EXPLOSION;
+	}	
+	
+    public function setEmpty()
+    {
+		$this->type = GameObject::TYPE_EMPTY;
+	}
 
     public function isNumber()
     {
@@ -37,13 +55,27 @@ class GameObject
     }
 
     /**
-     * Returns the number of mines around this cell.
+     * Sets the number of mines around this cell.
      */
+    public function setNumber($mines)
+    {
+		if($mines == 0)
+		{
+			$this->type = GameObject::TYPE_EMPTY;
+		}
+		else
+		{
+			$this->type = GameObject::TYPE_NUMBER;
+			$this->number = $mines;
+		}
+	}
+
+    /**
+     * Returns the number of mines around this cell.
+     */	
     public function getNumber()
     {
-        // This function should receive an array
-        // that either contains info of all the cells around
-        // some cell
-        return mt_rand(0, 7) + 1;
+		return $this->number;
     }
+	
 }
