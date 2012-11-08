@@ -54,15 +54,22 @@ class GameController extends Controller
 			foreach($surroundingTiles as $coordinate)
 			{
 				
-					$offset = explode(",", $coordinate);
-					$x = $column+$offset[0]; // Column
-					$y = $row+$offset[1]; // Row
-				if(!$game->gameArea[$y][$x]->isMine())
+				$offset = explode(",", $coordinate);
+				$x = $column+$offset[0]; // Column
+				$y = $row+$offset[1]; // Row
+				
+                if(!$game->gameArea[$y][$x]->isMine())
 				{
 					// TODO: I think we could do without passing the game variable to calculateMines
 					$mines = $this->calculateMines($game, $y, $x);
-					$game->gameArea[$y][$x]->setNumber($mines);
-				}
+					if($mines == 0)
+                        {
+                            // add more coordinates to surroundingTiles
+                            // for that expanding reveal
+                        }
+                    $game->gameArea[$y][$x]->setNumber($mines);
+				       
+                }
 				elseif($game->gameArea[$y][$x]->isNumber())
 				{
 					$game->gameArea[$row][$column]->setEmpty();
@@ -98,6 +105,10 @@ class GameController extends Controller
 			{
 				$mines++;
 			}
+            elseif($game->gameArea[$x][$y]->isEmpty())
+            {
+               // $surroundingPositions[] = $offset;
+            }
 		}
 		
 		return $mines;
