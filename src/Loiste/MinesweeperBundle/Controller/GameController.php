@@ -66,10 +66,15 @@ class GameController extends Controller
                         {
                             // add more coordinates to surroundingTiles
                             // for that expanding reveal
-                            
+							// using array_merge
+							$moreTiles = $game->surrounds($y, $x);
+							$surroundingTiles = array_merge($surroundingTiles, $moreTiles);
+                            print "doo";
                         }
-                    $game->gameArea[$y][$x]->setNumber($mines);
-				       
+					else
+					{
+						$game->gameArea[$y][$x]->setNumber($mines);
+				    }  
                 }
 				elseif($game->gameArea[$y][$x]->isNumber())
 				{
@@ -106,9 +111,9 @@ class GameController extends Controller
 			{
 				$mines++;
 			}
-            elseif($game->gameArea[$x][$y]->isEmpty())
+            else
             {
-               // $surroundingPositions[] = $offset;
+               $game->gameArea[$x][$y]->setEmpty();
             }
 		}
 		
