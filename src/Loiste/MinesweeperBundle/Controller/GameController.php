@@ -37,27 +37,36 @@ class GameController extends Controller
 		{
 			print "boom";
 			$game->gameArea[$row][$column]->blowUp();
-			print_r($game->surrounds($row, $column));
+			// print_r($game->surrounds($row, $column));
 		}
 		else
 		{
 			$game->gameArea[$row][$column]->setEmpty();
-			// TODO: I think we could do without passing the game variable
-			// Also: expanding reveal
-			// Logically it should go like this:
-			// get the surrounding tiles->foreach(surroundingTile as tile)->calculateMines(tile)
-			// That's slighlty redundant, but could be "idiot proof" solution.
-			// ideal solution would be one function-one loop
-			
+			// TODO: expanding reveal
+			// So, when checking out surrounding tiles, if there's an empty tile
+			// We keep looping, and we stop when...
+			// we have to rethink the logic here:
+			// If this is empty and has no mines around it, it's empty.
+			// If this is empty and has mines around it, it's a number.
+			// Loop should be kept going by adding coordinates of empty tiles to surroundingPositions array
+
 			$surroundingTiles = $game->surrounds($row, $column);
 			foreach($surroundingTiles as $coordinate)
 			{
-				$offset = explode(",", $coordinate);
-				$x = $column+$offset[0]; // Column
-				$y = $row+$offset[1]; // Row
-				$mines = $this->calculateMines($game, $y, $x);
-				$game->gameArea[$y][$x]->setNumber($mines);
-		
+				
+					$offset = explode(",", $coordinate);
+					$x = $column+$offset[0]; // Column
+					$y = $row+$offset[1]; // Row
+				if(!$game->gameArea[$y][$x]->isMine())
+				{
+					// TODO: I think we could do without passing the game variable to calculateMines
+					$mines = $this->calculateMines($game, $y, $x);
+					$game->gameArea[$y][$x]->setNumber($mines);
+				}
+				elseif($game->gameArea[$y][$x]->isNumber())
+				{
+					$game->gameArea[$row][$column]->setEmpty();
+				}
 			}
 
 		}
@@ -73,7 +82,10 @@ class GameController extends Controller
 		$surroundingPositions = $game->surrounds($row, $column);
 		
 		// IF the current tile has a mine, we'll just add that to count
-		if($game->gameArea[$row][$column]->isMine()) {$mines = 1;}
+		if($game->gameArea[$row][$column]->isMine()) 
+		{
+			$mines = 1;
+		}
 		else
 		$mines = 0;
 		foreach($surroundingPositions as $coordinate)

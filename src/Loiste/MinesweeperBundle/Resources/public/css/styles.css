@@ -17,7 +17,7 @@ h1 {
     box-shadow: 0 0 16px 8px rgba(0, 0, 0, 0.25);
 }
 
-.game-cell {
+.game-cell .cell {
     border: 1px solid #fff;
     cursor: pointer;
     width: 64px;
@@ -25,7 +25,7 @@ h1 {
 }
 
 /* Center content inside game cells. */
-.game-cell > * {
+.game-cell .cell > * {
     display: table;
     margin: 0 auto;
 }

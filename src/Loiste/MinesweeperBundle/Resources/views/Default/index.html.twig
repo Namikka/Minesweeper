@@ -13,11 +13,16 @@
         {% set gameObject = gameArea[row][column] %}
         {% set type = gameObject.type %}
         {% set number = gameObject.number %}
-
-        <td class="game-cell" data-type="{{ type }}">
+        {% set blown = gameObject.blown %}
+		
+		{% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_UNDISCOVERED') or type == 	constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE') %}
+			<td class="game-cell" data-type="{{ type }}">
+        {% else %}
+			<td class="cell" data-type="{{ type }}">
+		{% endif %}
             {% if number %}
 				<img src="{{ asset('bundles/loisteminesweeper/images/' ~ number ~ '.png') }}" />
-            {% elseif  type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EXPLOSION') %}
+            {% elseif (blown or type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EXPLOSION')) %}
 				<img src="{{ asset('bundles/loisteminesweeper/images/explosion.png') }}" />
             {% elseif  type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE_DISCOVERED') %}
 				<img src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" />

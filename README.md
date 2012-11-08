@@ -26,7 +26,9 @@ Here are a few ideas what to implement:
 
 ### Todo:
 * "Flag it or step on it"-menu
-* Switch tile size to dynamic, consider smart phone resolutions
+* Switch tilesize to dynamic, consider smart phone resolutions
+* Same kind of expanding reveal as in Windows Minesweeper(we should prolly use that surrounds function and pull of some kind of if isEmpty-loop)
+* Scoreboard and stats to DB?
 
 
 ### Getting started
