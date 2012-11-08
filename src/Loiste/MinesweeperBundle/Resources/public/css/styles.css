@@ -17,15 +17,27 @@ h1 {
     box-shadow: 0 0 16px 8px rgba(0, 0, 0, 0.25);
 }
 
-.game-cell .cell {
+.game-cell {
     border: 1px solid #fff;
     cursor: pointer;
     width: 64px;
     height: 64px;
 }
 
+.cell {
+    border: 2px solid #fff;
+    cursor: wait;
+    width: 64px;
+    height: 64px;
+}
+
 /* Center content inside game cells. */
-.game-cell .cell > * {
+.game-cell > * {
+    display: table;
+    margin: 0 auto;
+}
+
+.cell > * {
     display: table;
     margin: 0 auto;
 }
