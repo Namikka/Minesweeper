@@ -66,6 +66,7 @@ class GameController extends Controller
                         {
                             // add more coordinates to surroundingTiles
                             // for that expanding reveal
+                            
                         }
                     $game->gameArea[$y][$x]->setNumber($mines);
 				       
