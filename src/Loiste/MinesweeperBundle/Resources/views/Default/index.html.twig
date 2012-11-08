@@ -12,22 +12,24 @@
         {# Define variables. #}
         {% set gameObject = gameArea[row][column] %}
         {% set type = gameObject.type %}
-
-        <td class="game-cell" data-type="{{ type }}">
-            {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_NUMBER') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" />
-            {% endif %}
-
-            {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE_DISCOVERED') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" />
-            {% endif %}
-
-            {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_UNDISCOVERED') or type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/cell.png') }}" />
-            {% endif %}
-
-            {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EMPTY') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/empty.png') }}" />
+        {% set number = gameObject.number %}
+        {% set blown = gameObject.blown %}
+		
+		{% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_UNDISCOVERED') or type == 	constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE') %}
+			<td class="game-cell" data-type="{{ type }}">
+        {% else %}
+			<td class="cell" data-type="{{ type }}">
+		{% endif %}
+            {% if number %}
+				<img src="{{ asset('bundles/loisteminesweeper/images/' ~ number ~ '.png') }}" />
+            {% elseif (blown or type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EXPLOSION')) %}
+				<img src="{{ asset('bundles/loisteminesweeper/images/explosion.png') }}" />
+            {% elseif  type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE_DISCOVERED') %}
+				<img src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" />
+            {% elseif type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_UNDISCOVERED') or type == 	constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE') %}
+				<img src="{{ asset('bundles/loisteminesweeper/images/cell.png') }}" />
+            {% elseif type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EMPTY') %}
+				<img src="{{ asset('bundles/loisteminesweeper/images/empty.png') }}" />
             {% endif %}
         </td>
         {% endfor %}
